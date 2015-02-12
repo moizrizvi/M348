@@ -20,8 +20,7 @@ def newton_solve(f, df, p, tol):
 
 if __name__ == '__main__':
     x = Symbol('x')
-    f_str = sys.argv[1]
-    y = sympify(f_str)
+    y = sympify(sys.argv[1])
     yprime = y.diff(x)
     
     f = lambdify(x, y, 'numpy')
