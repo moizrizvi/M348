@@ -1,4 +1,8 @@
 #python 2.7
+import sys
+import os
+from sympy import *
+import numpy as np
 
 def newton_solve(f, df, p, tol):
     i = 1
@@ -13,14 +17,15 @@ def newton_solve(f, df, p, tol):
         p = x
     print 'Method failed with 99999 iterations.'
 
-def f(x):
-    return x**3 + x - 1
 
-def df(x):
-    return 3*x**2 + 1
-
-tol = float(10**-4)
-
-p = float(0)
-
-newton_solve(f,df,p,tol)
+if __name__ == '__main__':
+    x = Symbol('x')
+    f_str = sys.argv[1]
+    y = sympify(f_str)
+    yprime = y.diff(x)
+    
+    f = lambdify(x, y, 'numpy')
+    df = lambdify(x, yprime, 'numpy')
+    p = float(0)
+    tol = 10**-3
+    newton_solve(f,df,p,tol)
